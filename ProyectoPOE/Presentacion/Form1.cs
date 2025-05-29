@@ -1,3 +1,10 @@
+using System;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+// ProyectoPOE - Formulario de Registro de Participantes
+
+
 namespace ProyectoPOE
 {
     public partial class Form1 : Form
