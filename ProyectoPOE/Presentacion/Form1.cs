@@ -2,7 +2,8 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-// ProyectoPOE - Formulario de Registro de Participantes
+using ProyectoPOE.Datos.Entidades;
+using ProyectoPOE.Logica;
 
 
 namespace ProyectoPOE
@@ -11,9 +12,11 @@ namespace ProyectoPOE
     {
 
         private string rutaImagenSeleccionada = string.Empty;
+        private Service _miServicio;
         public Form1()
         {
             InitializeComponent();
+            _miServicio = new Service();
         }
 
         private void FormRegistro_Load(object sender, EventArgs e)
@@ -25,10 +28,7 @@ namespace ProyectoPOE
             cmbCargo.Items.Add("Expositor/a");
             cmbCargo.Items.Add("Encargado/a de Marketing");
             cmbCargo.Items.Add("Finanzas");
-            cmbCargo.Items.Add("Otro"); // Opción genérica
-
-            // Seleccionar el primer ítem por defecto o dejarlo sin selección
-            // cmbCargo.SelectedIndex = 0; // Si quieres que uno esté preseleccionado
+            cmbCargo.Items.Add("Otro");
         }
 
 
@@ -62,43 +62,45 @@ namespace ProyectoPOE
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            // Validaciones básicas
-            if (string.IsNullOrWhiteSpace(txtNombresApellidos.Text))
+            try
             {
-                MessageBox.Show("Por favor, ingrese los Nombres y Apellidos.", "Campo Requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtNombresApellidos.Focus();
-                return;
-            }
+                // Recopilar datos del UI
+                string nombres = txtNombresApellidos.Text;
+                // Usamos el operador ?. para evitar NullReferenceException si no hay nada seleccionado
+                // El servicio se encargará de validar si es null o vacío
+                string? cargo = cmbCargo.SelectedItem?.ToString();
 
-            if (cmbCargo.SelectedItem == null)
+                // La variable rutaImagenSeleccionada ya contiene la ruta o está vacía.
+
+                // Llamar al servicio para registrar
+                Participante participanteRegistrado = _miServicio.RegistrarNuevoParticipante(nombres, cargo, rutaImagenSeleccionada);
+                // Si llegamos aquí, el servicio no lanzó una excepción, así que la validación y creación fueron exitosas.
+                // Mostrar los datos (en una aplicación real, la confirmación vendría después de guardar en BD)
+                string fotoInfo = string.IsNullOrEmpty(participanteRegistrado.RutaFoto) ?
+                                  "No se cargó foto" :
+                                  $"Foto en: {Path.GetFileName(participanteRegistrado.RutaFoto)}"; // Usamos Path.GetFileName para mostrar solo el nombre
+
+                string mensaje = $"Participante Registrado (a través del Servicio):\n\n" +
+                                 $"Nombres y Apellidos: {participanteRegistrado.NombresApellidos}\n" +
+                                 $"Cargo/Función: {participanteRegistrado.Cargo}\n" +
+                                 $"Foto: {fotoInfo}";
+
+                MessageBox.Show(mensaje, "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (ValidacionException vex) // Captura específica para errores de validación del servicio
             {
-                MessageBox.Show("Por favor, seleccione un Cargo o Función.", "Campo Requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cmbCargo.Focus();
-                return;
+                MessageBox.Show(vex.Message, "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-            // Recopilar datos
-            string nombres = txtNombresApellidos.Text;
-            string cargo = cmbCargo.SelectedItem.ToString();
-            string fotoInfo = string.IsNullOrEmpty(rutaImagenSeleccionada) ? "No se cargó foto" : $"Foto en: {Path.GetFileName(rutaImagenSeleccionada)}";
-
-            // Mostrar los datos (en una aplicación real, aquí guardarías en una base de datos, lista, etc.)
-            string mensaje = $"Participante Registrado:\n\n" +
-                             $"Nombres y Apellidos: {nombres}\n" +
-                             $"Cargo/Función: {cargo}\n" +
-                             $"Foto: {fotoInfo}";
-
-            MessageBox.Show(mensaje, "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            // Opcional: Limpiar campos después de registrar
-            // LimpiarCampos();
+            catch (Exception ex) // Captura general para otros errores inesperados
+            {
+                MessageBox.Show("Ocurrió un error inesperado durante el registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LimpiarCampos()
         {
             txtNombresApellidos.Clear();
-            cmbCargo.SelectedIndex = -1; // Deselecciona cualquier ítem
-            // cmbCargo.Text = ""; // Alternativa si quieres limpiar el texto visible también
+            cmbCargo.SelectedIndex = -1;
             picFoto.Image = null;
             rutaImagenSeleccionada = string.Empty;
             txtNombresApellidos.Focus();
