@@ -28,8 +28,6 @@ namespace ProyectoPOE
             cmbCargo.Items.Add("Encargado/a de Marketing");
             cmbCargo.Items.Add("Finanzas");
             cmbCargo.Items.Add("Otro");
-            // cmbCargo.SelectedIndex = 0; // Si quieres que uno esté preseleccionado
-            // cmbCargo.SelectedIndex = 0; // Si quieres que uno esté preseleccionado
         }
 
 
@@ -65,45 +63,37 @@ namespace ProyectoPOE
         {
             try
             {
-                // Recopilar datos del UI
                 string nombres = txtNombresApellidos.Text;
-                // Usamos el operador ?. para evitar NullReferenceException si no hay nada seleccionado
-                // El servicio se encargará de validar si es null o vacío
                 string? cargo = cmbCargo.SelectedItem?.ToString();
 
-                // La variable rutaImagenSeleccionada ya contiene la ruta o está vacía.
-
                 // Llamar al servicio para registrar
-                Participante participanteRegistrado = _miServicio.RegistrarNuevoParticipante(nombres, cargo, rutaImagenSeleccionada);
-                // Si llegamos aquí, el servicio no lanzó una excepción, así que la validación y creación fueron exitosas.
-                // Mostrar los datos (en una aplicación real, la confirmación vendría después de guardar en BD)
+                Participante participanteRegistrado = _miServicio.RegistrarNuevoParticipante(nombres, cargo, rutaImagenSeleccionada); // <<--- CAMBIO EN LA LLAMADA
+
                 string fotoInfo = string.IsNullOrEmpty(participanteRegistrado.RutaFoto) ?
                                   "No se cargó foto" :
-                                  $"Foto en: {Path.GetFileName(participanteRegistrado.RutaFoto)}"; // Usamos Path.GetFileName para mostrar solo el nombre
+                                  $"Foto en: {Path.GetFileName(participanteRegistrado.RutaFoto)}";
 
                 string mensaje = $"Participante Registrado (a través del Servicio):\n\n" +
                                  $"Nombres y Apellidos: {participanteRegistrado.NombresApellidos}\n" +
                                  $"Cargo/Función: {participanteRegistrado.Cargo}\n" +
+                                 $"Foto: {fotoInfo}";
+
                 MessageBox.Show(mensaje, "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
-            catch (ValidacionException vex) // Captura específica para errores de validación del servicio
+            catch (ValidacionException vex)
             {
                 MessageBox.Show(vex.Message, "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            catch (Exception ex) // Captura general para otros errores inesperados
+            catch (Exception ex)
             {
                 MessageBox.Show("Ocurrió un error inesperado durante el registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            // LimpiarCampos();
-            // LimpiarCampos();
         }
-
         private void LimpiarCampos()
+        {
+            txtNombresApellidos.Clear();
             cmbCargo.SelectedIndex = -1;
-            cmbCargo.SelectedIndex = -1; // Deselecciona cualquier ítem
-            // cmbCargo.Text = ""; // Alternativa si quieres limpiar el texto visible también
-            cmbCargo.SelectedIndex = -1; // Deselecciona cualquier ítem
-            // cmbCargo.Text = ""; // Alternativa si quieres limpiar el texto visible también
             picFoto.Image = null;
             rutaImagenSeleccionada = string.Empty;
             txtNombresApellidos.Focus();
