@@ -18,17 +18,16 @@ namespace ProyectoPOE
 
         private void FormRegistro_Load(object sender, EventArgs e)
         {
-            // Cargar items en el ComboBox de Cargo/Función
-            cmbCargo.Items.Add("Líder del Proyecto");
-            cmbCargo.Items.Add("Diseñador/a Gráfico/a");
+            // Cargar items en el ComboBox de Cargo/FunciÃ³n
+            cmbCargo.Items.Add("LÃ­der del Proyecto");
+            cmbCargo.Items.Add("DiseÃ±ador/a GrÃ¡fico/a");
             cmbCargo.Items.Add("Desarrollador/a Software");
             cmbCargo.Items.Add("Expositor/a");
             cmbCargo.Items.Add("Encargado/a de Marketing");
             cmbCargo.Items.Add("Finanzas");
-            cmbCargo.Items.Add("Otro"); // Opción genérica
+            cmbCargo.Items.Add("Otro"); // OpciÃ³n genÃ©rica
 
-            // Seleccionar el primer ítem por defecto o dejarlo sin selección
-            // cmbCargo.SelectedIndex = 0; // Si quieres que uno esté preseleccionado
+            // Seleccionar el primer Ã­tem por defecto o dejarlo sin selecciÃ³n
         }
 
 
@@ -62,7 +61,7 @@ namespace ProyectoPOE
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            // Validaciones básicas
+            // Validaciones bÃ¡sicas
             if (string.IsNullOrWhiteSpace(txtNombresApellidos.Text))
             {
                 MessageBox.Show("Por favor, ingrese los Nombres y Apellidos.", "Campo Requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -72,7 +71,7 @@ namespace ProyectoPOE
 
             if (cmbCargo.SelectedItem == null)
             {
-                MessageBox.Show("Por favor, seleccione un Cargo o Función.", "Campo Requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, seleccione un Cargo o FunciÃ³n.", "Campo Requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 cmbCargo.Focus();
                 return;
             }
@@ -80,25 +79,21 @@ namespace ProyectoPOE
             // Recopilar datos
             string nombres = txtNombresApellidos.Text;
             string cargo = cmbCargo.SelectedItem.ToString();
-            string fotoInfo = string.IsNullOrEmpty(rutaImagenSeleccionada) ? "No se cargó foto" : $"Foto en: {Path.GetFileName(rutaImagenSeleccionada)}";
+            string fotoInfo = string.IsNullOrEmpty(rutaImagenSeleccionada) ? "No se cargÃ³ foto" : $"Foto en: {Path.GetFileName(rutaImagenSeleccionada)}";
 
-            // Mostrar los datos (en una aplicación real, aquí guardarías en una base de datos, lista, etc.)
+            // Mostrar los datos (en una aplicaciÃ³n real, aquÃ­ guardarÃ­as en una base de datos, lista, etc.)
             string mensaje = $"Participante Registrado:\n\n" +
                              $"Nombres y Apellidos: {nombres}\n" +
-                             $"Cargo/Función: {cargo}\n" +
+                             $"Cargo/FunciÃ³n: {cargo}\n" +
                              $"Foto: {fotoInfo}";
 
             MessageBox.Show(mensaje, "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            // Opcional: Limpiar campos después de registrar
-            // LimpiarCampos();
         }
 
         private void LimpiarCampos()
         {
             txtNombresApellidos.Clear();
-            cmbCargo.SelectedIndex = -1; // Deselecciona cualquier ítem
-            // cmbCargo.Text = ""; // Alternativa si quieres limpiar el texto visible también
+            cmbCargo.SelectedIndex = -1; // Deselecciona cualquier Ã­te
             picFoto.Image = null;
             rutaImagenSeleccionada = string.Empty;
             txtNombresApellidos.Focus();
