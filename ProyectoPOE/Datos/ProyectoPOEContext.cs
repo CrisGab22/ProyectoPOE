@@ -10,6 +10,8 @@ namespace ProyectoPOE.Datos
         public DbSet<Facultad> Facultades { get; set; } = null!;
         public DbSet<Rubro> Rubros { get; set; } = null!;
 
+        public DbSet<Participante> Participantes { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             // todo: cambiar esto a una variable de entorno o configuración
