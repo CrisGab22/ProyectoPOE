@@ -52,8 +52,9 @@
             btnRegistrarAplicante.Name = "btnRegistrarAplicante";
             btnRegistrarAplicante.Size = new Size(400, 28);
             btnRegistrarAplicante.TabIndex = 2;
-            btnRegistrarAplicante.Text = "Registrar aplicante";
+            btnRegistrarAplicante.Text = "Registrar participante";
             btnRegistrarAplicante.UseVisualStyleBackColor = true;
+            btnRegistrarAplicante.Click += btnRegistrarAplicante_Click;
             // 
             // btnRegistrarEmprendimiento
             // 
