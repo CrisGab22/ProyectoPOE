@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using ProyectoPOE.Datos.Entidades;
 using System.IO;
 
-namespace ProyectoPOE.Logica
+namespace ProyectoPOE.Logica.Services
 {
     //Excepción para manejar errores de validación en el registro de participantes
     public class ValidacionException : Exception
     {
         public ValidacionException(string message) : base(message) { }
     }
-    public class Service
+    public class ParticipanteService
     {
         public Participante RegistrarNuevoParticipante(string nombresApellidos, string? cargo, string? rutaFotoOriginal)
         {

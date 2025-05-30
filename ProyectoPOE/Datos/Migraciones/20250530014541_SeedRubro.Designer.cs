@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProyectoPOE.Datos;
 
@@ -10,9 +11,11 @@ using ProyectoPOE.Datos;
 namespace ProyectoPOE.Datos.Migraciones
 {
     [DbContext(typeof(ProyectoPOEContext))]
-    partial class ProyectoPOEContextModelSnapshot : ModelSnapshot
+    [Migration("20250530014541_SeedRubro")]
+    partial class SeedRubro
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,10 +74,10 @@ namespace ProyectoPOE.Datos.Migraciones
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Descripcion")
+                    b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("varchar(100)")
-                        .HasColumnName("descripcion");
+                        .HasColumnName("nombre");
 
                     b.HasKey("Id");
 
@@ -84,22 +87,22 @@ namespace ProyectoPOE.Datos.Migraciones
                         new
                         {
                             Id = 1,
-                            Descripcion = "Facultad de Ciencias Matemáticas y Físicas"
+                            Nombre = "Facultad de Ciencias Matemáticas y Físicas"
                         },
                         new
                         {
                             Id = 2,
-                            Descripcion = "Facultad de Ciencias Económicas"
+                            Nombre = "Facultad de Ciencias Económicas"
                         },
                         new
                         {
                             Id = 3,
-                            Descripcion = "Facultad de Ciencias Sociales"
+                            Nombre = "Facultad de Ciencias Sociales"
                         },
                         new
                         {
                             Id = 4,
-                            Descripcion = "Facultad de Derecho"
+                            Nombre = "Facultad de Derecho"
                         });
                 });
 

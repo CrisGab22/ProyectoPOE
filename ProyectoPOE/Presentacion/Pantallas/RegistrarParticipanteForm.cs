@@ -3,19 +3,19 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using ProyectoPOE.Datos.Entidades;
-using ProyectoPOE.Logica;
+using ProyectoPOE.Logica.Services;
 
 namespace ProyectoPOE
 {
-    public partial class Form1 : Form
+    public partial class RegistrarParticipanteForm : Form
     {
 
         private string rutaImagenSeleccionada = string.Empty;
-        private Service _miServicio;
-        public Form1()
+        private ParticipanteService _miServicio;
+        public RegistrarParticipanteForm()
         {
             InitializeComponent();
-            _miServicio = new Service();
+            _miServicio = new ParticipanteService();
         }
 
         private void FormRegistro_Load(object sender, EventArgs e)

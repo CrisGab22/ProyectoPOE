@@ -30,6 +30,15 @@ namespace ProyectoPOE.Datos.Entidades
             builder.HasMany(rubro => rubro.Emprendimientos)
                    .WithOne(emprendimiento => emprendimiento.Rubro)
                    .HasForeignKey(emprendimiento => emprendimiento.RubroId);
+
+            // Seeder
+            builder.HasData(
+                new Rubro { Id = 1, Descripcion = "tecnología" },
+                new Rubro { Id = 2, Descripcion = "gastronomía" },
+                new Rubro { Id = 3, Descripcion = "textil" },
+                new Rubro { Id = 4, Descripcion = "servicios" },
+                new Rubro { Id = 5, Descripcion = "artesanía" }
+            );
         }
     }
 }

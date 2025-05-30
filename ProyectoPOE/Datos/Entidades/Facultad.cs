@@ -12,8 +12,8 @@ namespace ProyectoPOE.Datos.Entidades
         public int Id { get; set; }
 
         [Required]
-        [Column("nombre", TypeName = "varchar(100)")]
-        public string Nombre { get; set; } = "";
+        [Column("descripcion", TypeName = "varchar(100)")]
+        public string Descripcion { get; set; } = "";
 
         public virtual ICollection<Emprendimiento>? Emprendimientos { get; set; }
 
@@ -33,6 +33,14 @@ namespace ProyectoPOE.Datos.Entidades
             builder.HasMany(facultad => facultad.Emprendimientos)
                    .WithOne(emprendimiento => emprendimiento.Facultad)
                    .HasForeignKey(emprendimiento => emprendimiento.FacultadId);
+
+            // Seeder
+            builder.HasData(
+                new Facultad { Id = 1, Descripcion = "Facultad de Ciencias Matemáticas y Físicas" },
+                new Facultad { Id = 2, Descripcion = "Facultad de Ciencias Económicas" },
+                new Facultad { Id = 3, Descripcion = "Facultad de Ciencias Sociales" },
+                new Facultad { Id = 4, Descripcion = "Facultad de Derecho" }
+            );
         }
     }
 }
