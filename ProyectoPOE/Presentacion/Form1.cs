@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using ProyectoPOE.Datos.Entidades;
 using ProyectoPOE.Logica;
 
-
 namespace ProyectoPOE
 {
     public partial class Form1 : Form
@@ -21,14 +20,20 @@ namespace ProyectoPOE
 
         private void FormRegistro_Load(object sender, EventArgs e)
         {
-            // Cargar items en el ComboBox de Cargo/Funci�n
-            cmbCargo.Items.Add("L�der del Proyecto");
-            cmbCargo.Items.Add("Dise�ador/a Gr�fico/a");
+            // Cargar items en el ComboBox de Cargo/Función
+            cmbCargo.Items.Add("Líder del Proyecto");
+            cmbCargo.Items.Add("Diseñador/a Gráfico/a");
             cmbCargo.Items.Add("Desarrollador/a Software");
             cmbCargo.Items.Add("Expositor/a");
             cmbCargo.Items.Add("Encargado/a de Marketing");
             cmbCargo.Items.Add("Finanzas");
+<<<<<<< HEAD
             cmbCargo.Items.Add("Otro");
+=======
+            cmbCargo.Items.Add("Otro"); // Opción genérica
+
+            // Seleccionar el primer ítem por defecto o dejarlo sin selección
+>>>>>>> ce1f93ef0101ec10462a06cd23e36a00a5ff597b
         }
 
 
@@ -62,7 +67,12 @@ namespace ProyectoPOE
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
             try
+=======
+            // Validaciones básicas
+            if (string.IsNullOrWhiteSpace(txtNombresApellidos.Text))
+>>>>>>> ce1f93ef0101ec10462a06cd23e36a00a5ff597b
             {
                 // Recopilar datos del UI
                 string nombres = txtNombresApellidos.Text;
@@ -89,18 +99,42 @@ namespace ProyectoPOE
             }
             catch (ValidacionException vex) // Captura espec�fica para errores de validaci�n del servicio
             {
+<<<<<<< HEAD
                 MessageBox.Show(vex.Message, "Error de Validaci�n", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex) // Captura general para otros errores inesperados
             {
                 MessageBox.Show("Ocurri� un error inesperado durante el registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+=======
+                MessageBox.Show("Por favor, seleccione un Cargo o Función.", "Campo Requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbCargo.Focus();
+                return;
+            }
+
+            // Recopilar datos
+            string nombres = txtNombresApellidos.Text;
+            string cargo = cmbCargo.SelectedItem.ToString();
+            string fotoInfo = string.IsNullOrEmpty(rutaImagenSeleccionada) ? "No se cargó foto" : $"Foto en: {Path.GetFileName(rutaImagenSeleccionada)}";
+
+            // Mostrar los datos (en una aplicación real, aquí guardarías en una base de datos, lista, etc.)
+            string mensaje = $"Participante Registrado:\n\n" +
+                             $"Nombres y Apellidos: {nombres}\n" +
+                             $"Cargo/Función: {cargo}\n" +
+                             $"Foto: {fotoInfo}";
+
+            MessageBox.Show(mensaje, "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+>>>>>>> ce1f93ef0101ec10462a06cd23e36a00a5ff597b
         }
 
         private void LimpiarCampos()
         {
             txtNombresApellidos.Clear();
+<<<<<<< HEAD
             cmbCargo.SelectedIndex = -1;
+=======
+            cmbCargo.SelectedIndex = -1; // Deselecciona cualquier íte
+>>>>>>> ce1f93ef0101ec10462a06cd23e36a00a5ff597b
             picFoto.Image = null;
             rutaImagenSeleccionada = string.Empty;
             txtNombresApellidos.Focus();
