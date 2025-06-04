@@ -105,6 +105,7 @@
             Controls.Add(btnRegistrarAplicante);
             Controls.Add(lTittle);
             Name = "Menu";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu";
             ResumeLayout(false);
             PerformLayout();

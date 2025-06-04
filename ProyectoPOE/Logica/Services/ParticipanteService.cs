@@ -15,32 +15,27 @@ namespace ProyectoPOE.Logica.Services
     }
     public class ParticipanteService
     {
-        public Participante RegistrarNuevoParticipante(string nombresApellidos, string? cargo, string? rutaFotoOriginal)
+        public Participante RegistrarNuevoParticipante(string nombresApellidos, string? cargo, byte[]? fotoBytes)
         {
-            // 1. Hacer las validaciones de los parámetros recibidos
             if (string.IsNullOrWhiteSpace(nombresApellidos))
             {
-                throw new ValidacionException("Por favor, ingrese los Nombres y Apellidos.");
+                // throw new ValidacionException("Por favor, ingrese los Nombres y Apellidos.");
+                throw new ArgumentException("Por favor, ingrese los Nombres y Apellidos.", nameof(nombresApellidos));
             }
 
             if (string.IsNullOrWhiteSpace(cargo))
             {
-                throw new ValidacionException("Por favor, seleccione un Cargo o Función.");
-            }
-
-            // 2. Construir un objeto de la entidad (Modelo)
-            string? nombreArchivoFoto = null;
-            if (!string.IsNullOrEmpty(rutaFotoOriginal))
-            {
-                nombreArchivoFoto = rutaFotoOriginal;
+                // throw new ValidacionException("Por favor, seleccione un Cargo o Función.");
+                throw new ArgumentException("Por favor, seleccione un Cargo o Función.", nameof(cargo));
             }
 
             Participante nuevoParticipante = new Participante
             {
                 NombresApellidos = nombresApellidos,
                 Cargo = cargo,
-                RutaFoto = nombreArchivoFoto
+                FotoBytes = fotoBytes // Asignar los bytes de la imagen
             };
+
             return nuevoParticipante;
         }
     }
