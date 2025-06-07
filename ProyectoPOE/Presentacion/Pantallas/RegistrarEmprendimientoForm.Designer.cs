@@ -176,6 +176,7 @@
             Controls.Add(lFacultad);
             Controls.Add(lNombre);
             Name = "RegistrarEmprendimientoForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Registrar Emprendimiento";
             ((System.ComponentModel.ISupportInitialize)pbFoto).EndInit();
             ResumeLayout(false);
