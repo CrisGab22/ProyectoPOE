@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProyectoPOE.Datos;
 
@@ -10,9 +11,11 @@ using ProyectoPOE.Datos;
 namespace ProyectoPOE.Datos.Migraciones
 {
     [DbContext(typeof(ProyectoPOEContext))]
-    partial class ProyectoPOEContextModelSnapshot : ModelSnapshot
+    [Migration("20250614144741_CreateResultadoEventosTables")]
+    partial class CreateResultadoEventosTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,33 +42,6 @@ namespace ProyectoPOE.Datos.Migraciones
                     b.HasKey("Id");
 
                     b.ToTable("categoria", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Descripcion = "tecnología"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Descripcion = "gastronomía"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Descripcion = "textil"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Descripcion = "servicios"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Descripcion = "artesanía"
-                        });
                 });
 
             modelBuilder.Entity("ProyectoPOE.Datos.Entidades.Emprendimiento", b =>
