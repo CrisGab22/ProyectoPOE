@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using ProyectoPOE.Datos.Entidades;
+using ProyectoPOE.Logica.Helpers;
 using ProyectoPOE.Logica.Services;
 
 namespace ProyectoPOE
@@ -33,7 +34,6 @@ namespace ProyectoPOE
 
         private void btnCargarFoto_Click(object sender, EventArgs e)
         {
-            // Configurar el OpenFileDialog
             ofdCargarImagen.Title = "Seleccionar Foto del Participante";
             ofdCargarImagen.Filter = "Archivos de Imagen|*.jpg;*.jpeg;*.png;*.gif;*.bmp|Todos los archivos|*.*";
             ofdCargarImagen.FileName = string.Empty; // Limpiar nombre de archivo previo
@@ -63,17 +63,37 @@ namespace ProyectoPOE
         {
             try
             {
-                string nombres = txtNombresApellidos.Text;
+                string nombres = txtNombresApellidos.Text; // Asegúrate que este control exista en tu form
                 string? cargo = cmbCargo.SelectedItem?.ToString();
 
-                // Llamar al servicio para registrar
-                Participante participanteRegistrado = _miServicio.RegistrarNuevoParticipante(nombres, cargo, rutaImagenSeleccionada); // <<--- CAMBIO EN LA LLAMADA
+                byte[]? imagenBytes = null;
+                if (picFoto.Image != null)
+                {
+                    try
+                    {
+                        // Usar el helper para convertir la imagen del PictureBox a byte[]
+                        imagenBytes = ImageToBytes.ConvertirImagenABytes(picFoto.Image);
+                    }
+                    catch (ArgumentNullException anex)
+                    {
+                        MessageBox.Show(anex.Message, "Error de Conversión", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return; // No continuar si hay error de conversión
+                    }
+                    catch (Exception conversionEx)
+                    {
+                        MessageBox.Show("Error al procesar la imagen para guardarla: " + conversionEx.Message, "Error de Imagen", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return; // No continuar si hay error de conversión
+                    }
+                }
 
-                string fotoInfo = string.IsNullOrEmpty(participanteRegistrado.RutaFoto) ?
-                                  "No se cargó foto" :
-                                  $"Foto en: {Path.GetFileName(participanteRegistrado.RutaFoto)}";
+                // Llamar al servicio con los bytes de la imagen
+                Participante participanteRegistrado = _miServicio.RegistrarNuevoParticipante(nombres, cargo, imagenBytes);
 
-                string mensaje = $"Participante Registrado (a través del Servicio):\n\n" +
+                string fotoInfo = (participanteRegistrado.FotoBytes != null && participanteRegistrado.FotoBytes.Length > 0) ?
+                                  "Foto guardada" :
+                                  "No se cargó foto";
+
+                string mensaje = $"Participante Registrado:\n\n" +
                                  $"Nombres y Apellidos: {participanteRegistrado.NombresApellidos}\n" +
                                  $"Cargo/Función: {participanteRegistrado.Cargo}\n" +
                                  $"Foto: {fotoInfo}";
@@ -81,9 +101,9 @@ namespace ProyectoPOE
                 MessageBox.Show(mensaje, "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
-            catch (ValidacionException vex)
+            catch (ArgumentException argEx) // Para capturar las de ParticipanteService
             {
-                MessageBox.Show(vex.Message, "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(argEx.Message, "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {

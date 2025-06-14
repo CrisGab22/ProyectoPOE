@@ -8,39 +8,31 @@ using System.IO;
 
 namespace ProyectoPOE.Logica.Services
 {
-    //Excepción para manejar errores de validación en el registro de participantes
     public class ValidacionException : Exception
     {
         public ValidacionException(string message) : base(message) { }
     }
     public class ParticipanteService
     {
-        public Participante RegistrarNuevoParticipante(string nombresApellidos, string? cargo, string? rutaFotoOriginal)
+        public Participante RegistrarNuevoParticipante(string nombresApellidos, string? cargo, byte[]? fotoBytes)
         {
-            // 1. Hacer las validaciones de los parámetros recibidos
             if (string.IsNullOrWhiteSpace(nombresApellidos))
             {
-                throw new ValidacionException("Por favor, ingrese los Nombres y Apellidos.");
+                throw new ArgumentException("Por favor, ingrese los Nombres y Apellidos.", nameof(nombresApellidos));
             }
 
             if (string.IsNullOrWhiteSpace(cargo))
             {
-                throw new ValidacionException("Por favor, seleccione un Cargo o Función.");
-            }
-
-            // 2. Construir un objeto de la entidad (Modelo)
-            string? nombreArchivoFoto = null;
-            if (!string.IsNullOrEmpty(rutaFotoOriginal))
-            {
-                nombreArchivoFoto = rutaFotoOriginal;
+                throw new ArgumentException("Por favor, seleccione un Cargo o Función.", nameof(cargo));
             }
 
             Participante nuevoParticipante = new Participante
             {
                 NombresApellidos = nombresApellidos,
                 Cargo = cargo,
-                RutaFoto = nombreArchivoFoto
+                FotoBytes = fotoBytes
             };
+
             return nuevoParticipante;
         }
     }

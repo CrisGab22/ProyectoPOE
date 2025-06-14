@@ -3,25 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProyectoPOE.Datos.Entidades
 {
     public class Participante
     {
-        public int Id { get; set; } // Clave primaria, útil para la base de datos
+        [Key]
+        [Column("id_participante")]
+        public int Id { get; set; }
+
+        [Required]
+        [StringLength(150)]
+        [Column("nombres_apellidos")]
         public string NombresApellidos { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        [Column("cargo_funcion")]
         public string Cargo { get; set; }
-        public string? RutaFoto { get; set; } // Puede ser null si no se carga foto
 
-        // Constructor vacío es útil para Entity Framework Core
-        public Participante() { }
+        [Column("foto_participante", TypeName = "varbinary(max)")]
+        public byte[]? FotoBytes { get; set; }
 
-        // Constructor para facilitar la creación
-        public Participante(string nombresApellidos, string cargo, string? rutaFoto)
+        public Participante()
+        {
+            NombresApellidos = string.Empty;
+            Cargo = string.Empty;
+        }
+
+        public Participante(string nombresApellidos, string cargo, byte[]? fotoBytes)
         {
             NombresApellidos = nombresApellidos;
             Cargo = cargo;
-            RutaFoto = rutaFoto;
+            FotoBytes = fotoBytes;
         }
     }
 }

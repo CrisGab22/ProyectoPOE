@@ -49,7 +49,8 @@
             // 
             picFoto.Location = new Point(193, 316);
             picFoto.Name = "picFoto";
-            picFoto.Size = new Size(222, 55);
+            picFoto.Size = new Size(222, 208);
+            picFoto.SizeMode = PictureBoxSizeMode.StretchImage;
             picFoto.TabIndex = 17;
             picFoto.TabStop = false;
             picFoto.UseWaitCursor = true;
@@ -104,7 +105,7 @@
             // 
             // btnLimpiar
             // 
-            btnLimpiar.Location = new Point(567, 228);
+            btnLimpiar.Location = new Point(505, 334);
             btnLimpiar.Name = "btnLimpiar";
             btnLimpiar.Size = new Size(137, 56);
             btnLimpiar.TabIndex = 11;
@@ -115,7 +116,7 @@
             // 
             // btnRegistrar
             // 
-            btnRegistrar.Location = new Point(567, 36);
+            btnRegistrar.Location = new Point(514, 124);
             btnRegistrar.Name = "btnRegistrar";
             btnRegistrar.Size = new Size(137, 48);
             btnRegistrar.TabIndex = 10;
@@ -139,7 +140,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1115, 554);
+            ClientSize = new Size(746, 554);
             Controls.Add(picFoto);
             Controls.Add(cmbCargo);
             Controls.Add(txtNombresApellidos);
@@ -150,6 +151,7 @@
             Controls.Add(btnRegistrar);
             Controls.Add(btnCargarFoto);
             Name = "RegistrarParticipanteForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Registrar Participante";
             ((System.ComponentModel.ISupportInitialize)picFoto).EndInit();
             ResumeLayout(false);
