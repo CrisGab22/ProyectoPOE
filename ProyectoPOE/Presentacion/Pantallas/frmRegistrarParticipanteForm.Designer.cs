@@ -1,6 +1,6 @@
 ﻿namespace ProyectoPOE
 {
-    partial class RegistrarParticipanteForm
+    partial class frmRegistrarParticipanteForm
     {
         /// <summary>
         ///  Required designer variable.

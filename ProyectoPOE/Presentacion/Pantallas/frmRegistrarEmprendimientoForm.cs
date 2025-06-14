@@ -2,10 +2,10 @@
 
 namespace ProyectoPOE.Presentacion.Pantallas
 {
-    public partial class RegistrarEmprendimientoForm : Form
+    public partial class frmRegistrarEmprendimientoForm : Form
     {
         private readonly EmprendimientoService service;
-        public RegistrarEmprendimientoForm()
+        public frmRegistrarEmprendimientoForm()
         {
             InitializeComponent();
             this.service = new EmprendimientoService();

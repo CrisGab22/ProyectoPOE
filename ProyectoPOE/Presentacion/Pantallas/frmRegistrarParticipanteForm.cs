@@ -8,12 +8,12 @@ using ProyectoPOE.Logica.Services;
 
 namespace ProyectoPOE
 {
-    public partial class RegistrarParticipanteForm : Form
+    public partial class frmRegistrarParticipanteForm : Form
     {
 
         private string rutaImagenSeleccionada = string.Empty;
         private ParticipanteService _miServicio;
-        public RegistrarParticipanteForm()
+        public frmRegistrarParticipanteForm()
         {
             InitializeComponent();
             _miServicio = new ParticipanteService();
