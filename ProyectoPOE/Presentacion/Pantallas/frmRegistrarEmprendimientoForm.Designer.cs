@@ -1,6 +1,6 @@
 ﻿namespace ProyectoPOE.Presentacion.Pantallas
 {
-    partial class RegistrarEmprendimientoForm
+    partial class frmRegistrarEmprendimientoForm
     {
         /// <summary>
         /// Required designer variable.

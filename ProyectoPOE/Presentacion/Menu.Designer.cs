@@ -83,6 +83,7 @@
             btnResultados.TabIndex = 4;
             btnResultados.Text = "Resultados";
             btnResultados.UseVisualStyleBackColor = true;
+            btnResultados.Click += btnResultados_Click;
             // 
             // btnRegistrarUsuarios
             // 
