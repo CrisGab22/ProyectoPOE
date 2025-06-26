@@ -1,4 +1,5 @@
-﻿using ProyectoPOE.Datos.Entidades;
+﻿using ProyectoPOE.Datos.Dtos;
+using ProyectoPOE.Datos.Entidades;
 using ProyectoPOE.Logica.Helpers;
 using ProyectoPOE.Logica.Services;
 
@@ -7,7 +8,7 @@ namespace ProyectoPOE.Presentacion.Pantallas
     public partial class frmResultadosEvento : Form
     {
         private readonly ResultadoEventoService _service;
-        private List<ResultadoEvento> _resultados;
+        private List<ResultadoDto> _resultados;
         public frmResultadosEvento()
         {
             InitializeComponent();
