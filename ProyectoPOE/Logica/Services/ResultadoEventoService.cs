@@ -3,6 +3,7 @@ using ProyectoPOE.Datos.Entidades;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using ProyectoPOE.Datos.Dtos;
 
 namespace ProyectoPOE.Logica.Services
 {
@@ -33,13 +34,20 @@ namespace ProyectoPOE.Logica.Services
             context.SaveChanges();
         }
 
-        public List<ResultadoEvento> ListarResultados()
+        public List<ResultadoDto> ListarResultados()
         {
             using var context = new ProyectoPOEContext();
             return context.ResultadosEventos
                 .Include(r => r.Categoria)
                 .Include(r => r.Emprendimiento)
                 .OrderByDescending(r => r.Id)
+                .Select(r => new ResultadoDto
+                {
+                    Id = r.Id,
+                    Categoria = r.Categoria.Descripcion,
+                    Emprendimiento = r.Emprendimiento.Nombre,
+                    EmprendimientoDescripcion = r.Emprendimiento.Descripcion
+                })
                 .ToList();
         }
     }

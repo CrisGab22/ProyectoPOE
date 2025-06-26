@@ -1,5 +1,6 @@
 ﻿using PdfSharp.Drawing;
 using PdfSharp.Pdf;
+using ProyectoPOE.Datos.Dtos;
 using ProyectoPOE.Datos.Entidades;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +9,7 @@ namespace ProyectoPOE.Logica.Helpers
 {
     public static class PdfExporter
     {
-        public static void ExportarResultados(List<ResultadoEvento> resultados)
+        public static void ExportarResultados(List<ResultadoDto> resultados)
         {
             PdfDocument documento = new PdfDocument();
             documento.Info.Title = "Resultados del Evento";
@@ -25,7 +26,7 @@ namespace ProyectoPOE.Logica.Helpers
 
             foreach (var resultado in resultados)
             {
-                string texto = $"Categoría: {resultado.Categoria.Descripcion}, Emprendimiento: {resultado.Emprendimiento.Nombre}";
+                string texto = $"Categoría: {resultado.Categoria}, Emprendimiento: {resultado.Emprendimiento}";
                 gfx.DrawString(texto, fuenteTexto, XBrushes.Black, new XRect(40, y, pagina.Width - 80, 20), XStringFormats.TopLeft);
                 y += 25;
 
