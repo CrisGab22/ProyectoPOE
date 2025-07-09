@@ -16,8 +16,8 @@ namespace ProyectoPOE.Presentacion.Pantallas
         {
             try
             {
-                txtNombre.Text = string.Empty;
-                txtDescripcion.Text = string.Empty;
+                txtNombre.Text = "";
+                txtDescripcion.Text = "";
                 pbFoto.Image = null;
 
                 cbFacultad.DataSource = service.getFacultades();
