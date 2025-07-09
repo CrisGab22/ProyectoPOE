@@ -1,3 +1,5 @@
+using ProyectoPOE.Presentacion.Pantallas;
+
 namespace ProyectoPOE
 {
     internal static class Program
@@ -11,7 +13,12 @@ namespace ProyectoPOE
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Menu());
+            var login = new frmLogin();
+            if (login.ShowDialog() == DialogResult.OK)
+            {
+                login.Close();
+                Application.Run(new frmMenuAdministrador());
+            }
         }
     }
 }

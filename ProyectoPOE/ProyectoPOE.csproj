@@ -22,4 +22,10 @@
     <PackageReference Include="PdfSharp" Version="1.50.5147" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Presentacion\Pantallas\Publico\frmMenuAdministrador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>
