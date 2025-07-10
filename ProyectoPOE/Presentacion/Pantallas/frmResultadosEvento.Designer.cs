@@ -106,8 +106,9 @@
             dgvResultados.Name = "dgvResultados";
             dgvResultados.Size = new Size(469, 165);
             dgvResultados.TabIndex = 6;
+            dgvResultados.CellContentClick += dgvResultados_CellContentClick;
             // 
-            // FmrResultadosEvento
+            // frmResultadosEvento
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -120,7 +121,7 @@
             Controls.Add(cmbCategoria);
             Controls.Add(lblEmprendimiento);
             Controls.Add(lblCategoria);
-            Name = "FmrResultadosEvento";
+            Name = "frmResultadosEvento";
             Text = "FmrResultadosEvento";
             Load += FrmResultadosEvento_Load;
             ((System.ComponentModel.ISupportInitialize)dgvResultados).EndInit();
