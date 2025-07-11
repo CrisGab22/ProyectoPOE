@@ -16,8 +16,7 @@ namespace ProyectoPOE.Datos
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            // todo: cambiar esto a una variable de entorno o configuración
-            options.UseSqlServer("Server=.;Database=ProyectoPOE;Trusted_Connection=True;TrustServerCertificate=True;");
+            options.UseSqlServer("Server=DUSTIN\\SQLEXPRESS;Database=ProyectoPOE;Trusted_Connection=True;TrustServerCertificate=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

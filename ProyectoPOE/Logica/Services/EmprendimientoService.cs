@@ -1,4 +1,5 @@
 ﻿using ProyectoPOE.Datos;
+using Microsoft.EntityFrameworkCore;
 using ProyectoPOE.Datos.Entidades;
 using ProyectoPOE.Logica.Helpers;
 
@@ -15,7 +16,16 @@ namespace ProyectoPOE.Logica.Services
         {
             return new ProyectoPOEContext().Rubros.ToList();
         }
-
+        public List<Emprendimiento> getEmprendimientos()
+        {
+            using (var context = new ProyectoPOEContext())
+            {
+                return context.Emprendimientos
+                              .Include(e => e.Facultad)
+                              .Include(e => e.Rubro)
+                              .ToList();
+            }
+        }
         public Emprendimiento guardar(
             string nombre,
             string descripcion,
@@ -41,7 +51,20 @@ namespace ProyectoPOE.Logica.Services
                 return emprendimiento;
             }
         }
+        public void eliminar(int idEmprendimiento)
+        {
+            using (var context = new ProyectoPOEContext())
+            {
+                var emprendimientoAEliminar = context.Emprendimientos.Find(idEmprendimiento);
+                if (emprendimientoAEliminar == null)
+                {
+                    throw new ArgumentException("El emprendimiento no existe.");
+                }
 
+                context.Emprendimientos.Remove(emprendimientoAEliminar);
+                context.SaveChanges();
+            }
+        }
         private static void validarEmprendimiento(Emprendimiento emp) {
             var errors = new List<string>();
 
