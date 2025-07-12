@@ -1,4 +1,9 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Drawing;
 using System.IO;
 
 namespace ProyectoPOE.Logica.Helpers
@@ -12,10 +17,10 @@ namespace ProyectoPOE.Logica.Helpers
             {
                 throw new ArgumentNullException(nameof(img), "La imagen no puede ser nula.");
             }
-            return ImagenABytes(img); 
+            return ImagenABytes(img);
         }
 
-        private static byte[] ImagenABytes(Image img) 
+        private static byte[] ImagenABytes(Image img)
         {
             using (MemoryStream ms = new MemoryStream())
             {
@@ -25,7 +30,7 @@ namespace ProyectoPOE.Logica.Helpers
         }
 
         /// <param name="bytes">
-        public static Image ConvertirBytesAImagen(byte[] bytes) 
+        public static Image ConvertirBytesAImagen(byte[] bytes)
         {
             if (bytes == null || bytes.Length == 0)
             {

@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProyectoPOE.Datos;
+﻿using ProyectoPOE.Datos;
+using Microsoft.EntityFrameworkCore;
 using ProyectoPOE.Datos.Dtos;
 using ProyectoPOE.Datos.Entidades;
 using ProyectoPOE.Logica.Helpers;
@@ -63,7 +63,6 @@ namespace ProyectoPOE.Logica.Services
                 return emprendimiento;
             }
         }
-
         public void eliminar(int idEmprendimiento)
         {
             using (var context = new ProyectoPOEContext())
@@ -78,7 +77,6 @@ namespace ProyectoPOE.Logica.Services
                 context.SaveChanges();
             }
         }
-
         private static void validarEmprendimiento(Emprendimiento emp) {
             var errors = new List<string>();
 
