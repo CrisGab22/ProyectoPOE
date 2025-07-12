@@ -1,5 +1,6 @@
 ﻿using ProyectoPOE.Datos;
 using Microsoft.EntityFrameworkCore;
+using ProyectoPOE.Datos.Dtos;
 using ProyectoPOE.Datos.Entidades;
 using ProyectoPOE.Logica.Helpers;
 
@@ -16,13 +17,24 @@ namespace ProyectoPOE.Logica.Services
         {
             return new ProyectoPOEContext().Rubros.ToList();
         }
-        public List<Emprendimiento> getEmprendimientos()
+        public List<EmprendimientoDto> getEmprendimientos()
         {
             using (var context = new ProyectoPOEContext())
             {
                 return context.Emprendimientos
-                              .Include(e => e.Facultad)
+                              .Include(e => e.Facultad) 
                               .Include(e => e.Rubro)
+                              .Select(e => new EmprendimientoDto
+                              {
+                                  Id = e.Id,
+                                  Nombre = e.Nombre,
+                                  FacultadId = e.FacultadId,
+                                  Facultad = e.Facultad.Descripcion,
+                                  RubroId = e.RubroId,
+                                  Rubro = e.Rubro.Descripcion,
+                                  Descripcion = e.Descripcion,
+                                  Foto = e.Foto
+                              })
                               .ToList();
             }
         }

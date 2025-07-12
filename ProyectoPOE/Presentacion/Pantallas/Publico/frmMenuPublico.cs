@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using ProyectoPOE.Presentacion.Pantallas;
 
-namespace ProyectoPOE.Presentacion.Pantallas.Publico
+namespace ProyectoPOE.Presentacion.Pantallas.Administrador
 {
     public partial class frmMenuPublico : Form
     {
         public frmMenuPublico()
         {
+            this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
+        }
+
+        private void btnVerEmprendimiento_Click(object sender, EventArgs e)
+        {
+            var frm = new frmVerEmprendimientos();
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            frm.ShowDialog();
         }
     }
 }

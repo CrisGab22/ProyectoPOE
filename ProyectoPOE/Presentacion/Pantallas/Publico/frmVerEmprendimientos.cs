@@ -5,12 +5,12 @@ using ProyectoPOE.Logica.Services;
 
 namespace ProyectoPOE.Presentacion.Pantallas
 {
-    public partial class frmRegistrarEmprendimientoForm : Form
+    public partial class frmVerEmprendimientos : Form
     {
         private readonly EmprendimientoService service;
         private int idEmprendimientoSeleccionado = -1;
 
-        public frmRegistrarEmprendimientoForm()
+        public frmVerEmprendimientos()
         {
             InitializeComponent();
             this.service = new EmprendimientoService();
@@ -38,7 +38,6 @@ namespace ProyectoPOE.Presentacion.Pantallas
                 cbRubro.SelectedIndex = -1;
 
                 idEmprendimientoSeleccionado = -1;
-                btn_Eliminar.Enabled = false; 
             }
             catch (Exception ex)
             {
@@ -65,47 +64,6 @@ namespace ProyectoPOE.Presentacion.Pantallas
             {
                 MessageBox.Show("Error al cargar emprendimientos: " + ex.Message);
             }
-        }
-
-        private void btnSubirFoto_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Imágenes|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
-
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                Image img = Image.FromFile(ofd.FileName);
-                pbFoto.Image = img;
-                pbFoto.SizeMode = PictureBoxSizeMode.Zoom;
-            }
-        }
-
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var nombre = txtNombre.Text.Trim();
-                var descripcion = txtDescripcion.Text.Trim();
-                var facultadId = (int)(cbFacultad.SelectedValue ?? 0);
-                var rubroId = (int)(cbRubro.SelectedValue ?? 0);
-                var foto = pbFoto.Image;
-
-                service.guardar(nombre, descripcion, facultadId, rubroId, foto);
-
-                MessageBox.Show("Emprendimiento creado exitosamente.");
-                EstadoInicial();
-                CargarEmprendimientosEnDataGridView();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al guardar: " + ex.Message);
-            }
-        }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            EstadoInicial();
-            Dgv_VisualizarEmprendimiento.ClearSelection(); 
         }
 
         private void Dgv_VisualizarEmprendimiento_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -142,7 +100,6 @@ namespace ProyectoPOE.Presentacion.Pantallas
                     pbFoto.Image = null;
                 }
 
-                btn_Eliminar.Enabled = true; 
             }
             else
             {
@@ -152,44 +109,9 @@ namespace ProyectoPOE.Presentacion.Pantallas
                 txtDescripcion.Text = "";
                 cbFacultad.SelectedIndex = -1;
                 cbRubro.SelectedIndex = -1;
-                btn_Eliminar.Enabled = false; 
             }
         }
 
-        private void btn_Eliminar_Click(object sender, EventArgs e)
-        {
-            if (idEmprendimientoSeleccionado != -1)
-            {
-                DialogResult dialogResult = MessageBox.Show(
-                    "¿Está seguro de que quiere eliminar este emprendimiento?",
-                    "Confirmar Eliminación",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                );
-
-                if (dialogResult == DialogResult.Yes)
-                {
-                    try
-                    {
-                        service.eliminar(idEmprendimientoSeleccionado);
-                        MessageBox.Show("Emprendimiento eliminado exitosamente.");
-                        EstadoInicial(); 
-                        CargarEmprendimientosEnDataGridView(); 
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        MessageBox.Show("Error al eliminar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Ocurrió un error inesperado al eliminar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Por favor, selecciona un emprendimiento de la lista para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
+      
     }
 }
