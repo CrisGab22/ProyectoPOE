@@ -1,6 +1,6 @@
-﻿namespace ProyectoPOE
+﻿namespace ProyectoPOE.Presentacion.Pantallas.Administrador
 {
-    partial class Menu: Form
+    partial class frmMenuAdministrador: Form
     {
         /// <summary>
         ///  Required designer variable.
@@ -93,8 +93,9 @@
             btnRegistrarUsuarios.TabIndex = 5;
             btnRegistrarUsuarios.Text = "Registrar Usuarios";
             btnRegistrarUsuarios.UseVisualStyleBackColor = true;
+            btnRegistrarUsuarios.Click += btnRegistrarUsuarios_Click;
             // 
-            // Menu
+            // frmMenuAdministrador
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -105,7 +106,7 @@
             Controls.Add(btnRegistrarEmprendimiento);
             Controls.Add(btnRegistrarAplicante);
             Controls.Add(lTittle);
-            Name = "Menu";
+            Name = "frmMenuAdministrador";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu";
             ResumeLayout(false);

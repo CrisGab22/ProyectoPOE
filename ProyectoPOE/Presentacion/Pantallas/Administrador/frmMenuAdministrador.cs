@@ -1,10 +1,10 @@
 using ProyectoPOE.Presentacion.Pantallas;
 
-namespace ProyectoPOE
+namespace ProyectoPOE.Presentacion.Pantallas.Administrador
 {
-    public partial class Menu : Form
+    public partial class frmMenuAdministrador : Form
     {
-        public Menu()
+        public frmMenuAdministrador()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
@@ -27,6 +27,13 @@ namespace ProyectoPOE
         private void btnResultados_Click(object sender, EventArgs e)
         {
             var frm = new frmResultadosEvento();
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            frm.ShowDialog();
+        }
+
+        private void btnRegistrarUsuarios_Click(object sender, EventArgs e)
+        {
+            var frm = new frmCrearUsuario();
             frm.StartPosition = FormStartPosition.CenterScreen;
             frm.ShowDialog();
         }
