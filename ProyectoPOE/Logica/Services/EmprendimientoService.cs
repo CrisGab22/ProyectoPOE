@@ -73,6 +73,12 @@ namespace ProyectoPOE.Logica.Services
                     throw new ArgumentException("El emprendimiento no existe.");
                 }
 
+                var tieneResultadosAtados = context.ResultadosEventos.FirstOrDefault(r => r.EmprendimientoId == idEmprendimiento) != null;
+                if (tieneResultadosAtados)
+                {
+                    throw new InvalidOperationException("No se puede eliminar el emprendimiento porque tiene resultados asociados.");
+                }
+
                 context.Emprendimientos.Remove(emprendimientoAEliminar);
                 context.SaveChanges();
             }
