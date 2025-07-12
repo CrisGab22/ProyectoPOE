@@ -35,4 +35,13 @@
     <PackageReference Include="PdfSharp" Version="1.50.5147" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Presentacion\Pantallas\Publico\frmMenuPublico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Presentacion\Pantallas\Publico\frmVerEmprendimientos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

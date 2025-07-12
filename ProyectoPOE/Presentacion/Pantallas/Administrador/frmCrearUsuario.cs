@@ -16,13 +16,7 @@ namespace ProyectoPOE.Presentacion.Pantallas.Administrador
                 if (value != _modoEdicion)
                 {
                     _modoEdicion = value;
-
-                    if (_modoEdicion)
-                    {
-                        lAccion.Text = _modoEdicion ?
-                            "Editar usuario"
-                            : "Crear usuario";
-                    }
+                    lAccion.Text = _modoEdicion ? "Editar usuario" : "Crear usuario";
                 }
             }
         }
@@ -44,6 +38,11 @@ namespace ProyectoPOE.Presentacion.Pantallas.Administrador
         {
             var usuarios = _usuarioService.ObtenerUsuarios();
             dgDatos.DataSource = usuarios;
+           
+            var dummy = usuarios.First();
+            dgDatos.Columns[nameof(dummy.Id)].Visible = false;
+            dgDatos.Columns[nameof(dummy.RolId)].Visible = false;
+
             dgDatos.ClearSelection();
         }
 
@@ -62,8 +61,8 @@ namespace ProyectoPOE.Presentacion.Pantallas.Administrador
 
             if (modoEdicion)
             {
-                var usuario = dgDatos.SelectedRows[0].DataBoundItem as UsuarioDto;
-                _usuarioService.ActualizarUsuario(usuario.Id, username, contrasena, habilitado, rolId);
+                var usuarioSeleccionado = dgDatos.SelectedRows[0].DataBoundItem as UsuarioDto;
+                _usuarioService.ActualizarUsuario(usuarioSeleccionado.Id, username, contrasena, habilitado, rolId);
                 MessageBox.Show("Usuario actualizado correctamente.");
             }
             else

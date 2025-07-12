@@ -2,7 +2,6 @@
 using ProyectoPOE.Logica.Helpers;
 using ProyectoPOE.Logica.Servicios;
 using ProyectoPOE.Presentacion.Pantallas.Administrador;
-using ProyectoPOE.Presentacion.Pantallas.Publico;
 
 namespace ProyectoPOE.Presentacion.Pantallas
 {
