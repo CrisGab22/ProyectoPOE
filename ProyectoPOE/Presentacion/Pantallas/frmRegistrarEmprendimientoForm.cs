@@ -15,6 +15,7 @@ namespace ProyectoPOE.Presentacion.Pantallas
             this.service = new EmprendimientoService();
             EstadoInicial();
             CargarEmprendimientosEnDataGridView();
+            Dgv_VisualizarEmprendimiento.AutoGenerateColumns = false;
         }
 
         private void EstadoInicial()

@@ -162,6 +162,7 @@
             // 
             // Dgv_VisualizarEmprendimiento
             // 
+            Dgv_VisualizarEmprendimiento.BackgroundColor = SystemColors.ButtonHighlight;
             Dgv_VisualizarEmprendimiento.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             Dgv_VisualizarEmprendimiento.Location = new Point(605, 41);
             Dgv_VisualizarEmprendimiento.Name = "Dgv_VisualizarEmprendimiento";
