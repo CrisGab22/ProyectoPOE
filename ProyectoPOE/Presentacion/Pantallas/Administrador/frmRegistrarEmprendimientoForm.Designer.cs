@@ -156,7 +156,7 @@
             // 
             pbFoto.Location = new Point(179, 323);
             pbFoto.Name = "pbFoto";
-            pbFoto.Size = new Size(221, 105);
+            pbFoto.Size = new Size(209, 134);
             pbFoto.TabIndex = 12;
             pbFoto.TabStop = false;
             // 
