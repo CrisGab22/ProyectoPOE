@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "ProyectoPOE": "Server=.;Database=ProyectoPOE;Trusted_Connection=True;TrustServerCertificate=True;"
+  }
+}
