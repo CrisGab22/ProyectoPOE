@@ -32,6 +32,9 @@ namespace ProyectoPOE.Datos.Entidades
         [Column("foto", TypeName = "varbinary(max)")]
         public byte[] Foto { get; set; } = [];
 
+        public virtual IEnumerable<Voto>? Votos { get; set; } = null!;
+        public virtual IEnumerable<Comentario>? Comentarios { get; set; } = null!;
+
     }
 
     public class EmprendimientoConfig : IEntityTypeConfiguration<Emprendimiento>

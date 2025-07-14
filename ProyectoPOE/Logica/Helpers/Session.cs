@@ -25,5 +25,14 @@ namespace ProyectoPOE.Logica.Helpers
             UsuarioAutenticado = usuario;
             return UsuarioAutenticado;
         }
+
+        public static int getIdUsuarioAutenticado()
+        {
+            if (UsuarioAutenticado == null)
+            {
+                throw new InvalidOperationException("No hay un usuario autenticado.");
+            }
+            return UsuarioAutenticado.Id;
+        }
     }
 }

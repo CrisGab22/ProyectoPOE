@@ -22,7 +22,7 @@ namespace ProyectoPOE.Logica.Services
             using (var context = new ProyectoPOEContext())
             {
                 return context.Emprendimientos
-                              .Include(e => e.Facultad) 
+                              .Include(e => e.Facultad)
                               .Include(e => e.Rubro)
                               .Select(e => new EmprendimientoDto
                               {
@@ -44,7 +44,7 @@ namespace ProyectoPOE.Logica.Services
             int facultadId,
             int rubroId,
             Image foto
-        ){
+        ) {
             var emprendimiento = new Emprendimiento() {
                 Descripcion = descripcion,
                 Nombre = nombre,
@@ -52,7 +52,7 @@ namespace ProyectoPOE.Logica.Services
                 RubroId = rubroId,
                 Foto = ImageToBytes.ConvertirImagenABytes(foto)
             };
-            
+
             validarEmprendimiento(emprendimiento);
             {
                 using (var context = new ProyectoPOEContext())
@@ -96,7 +96,7 @@ namespace ProyectoPOE.Logica.Services
                 errors.Add("La descripción del emprendimiento no puede estar vacía.");
             }
 
-            if (! (emp.FacultadId > 0))
+            if (!(emp.FacultadId > 0))
             {
                 errors.Add("Debe seleccionar una Facultad");
             }
@@ -106,14 +106,80 @@ namespace ProyectoPOE.Logica.Services
                 errors.Add("Debe seleccionar un Rubro");
             }
 
-            if(emp.Foto == null || emp.Foto.Length == 0)
+            if (emp.Foto == null || emp.Foto.Length == 0)
             {
                 errors.Add("Debe proporcionar una foto del emprendimiento.");
             }
 
-            if( errors.Count > 0)
+            if (errors.Count > 0)
                 throw new ArgumentException(string.Join(", ", errors));
         }
+    
+        public bool AgregarComentario(int idEmprendimiento, string comentario, int idUsuario)
+        {
+            using (var context = new ProyectoPOEContext())
+            {
+                if(string.IsNullOrWhiteSpace(comentario))
+                {
+                    throw new ArgumentException("El comentario no puede estar vacío.");
+                }
+                if(idEmprendimiento <= 0)
+                {
+                    throw new ArgumentException("El emprendimiento no es válido");
+                }
+                var emprendimiento = context.Emprendimientos.FirstOrDefault(emp => emp.Id == idEmprendimiento);
+                if (emprendimiento == null)
+                {
+                    throw new ArgumentException("El emprendimiento no existe.");
+                }
+                var nuevoComentario = new Comentario
+                {
+                    IdEmprendimiento = idEmprendimiento,
+                    Mensaje = comentario,
+                    IdUsuario = idUsuario
+                };
+                context.Comentarios.Add(nuevoComentario);
+                context.SaveChanges();
+                return true;
+            }
+        }
 
+        public bool AgregarVoto(int idEmprendimiento, int idUsuario)
+        {
+            using (var context = new ProyectoPOEContext())
+            {
+                var emprendimiento = context.Emprendimientos.FirstOrDefault(emp => emp.Id == idEmprendimiento);
+                if (emprendimiento == null)
+                {
+                    throw new ArgumentException("El emprendimiento no existe.");
+                }
+                var votoExistente = context.Votos
+                    .FirstOrDefault(v => v.IdEmprendimiento == idEmprendimiento && v.IdUsuario == idUsuario);
+                if (votoExistente != null)
+                {
+                    throw new InvalidOperationException("Ya has votado por este emprendimiento.");
+                }
+                var nuevoVoto = new Voto
+                {
+                    IdEmprendimiento = idEmprendimiento,
+                    IdUsuario = idUsuario
+                };
+                context.Votos.Add(nuevoVoto);
+                context.SaveChanges();
+                return true;
+            }
+        }
+
+        public string getComentario(int idEmprendimiento)
+        {
+            using (var context = new ProyectoPOEContext())
+            {
+                var comentario = context.Comentarios
+                    .Where(c => c.IdEmprendimiento == idEmprendimiento)
+                    .Select(c => c.Mensaje)
+                    .FirstOrDefault();
+                return comentario ?? string.Empty;
+            }
+        }
     }
 }
