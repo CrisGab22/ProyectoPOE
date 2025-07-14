@@ -15,7 +15,8 @@ namespace ProyectoPOE.Datos
         public DbSet<ResultadoEvento> ResultadosEventos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Rol> Roles { get; set; }
-
+        public DbSet<Evento> Eventos { get; set; }
+        public DbSet<PresentacionE> Presentacion { get; set; } 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             var configuration = new ConfigurationBuilder()
@@ -36,6 +37,9 @@ namespace ProyectoPOE.Datos
             modelBuilder.ApplyConfiguration(new ResultadoEventoConfig());
             modelBuilder.ApplyConfiguration(new UsuarioConfig());
             modelBuilder.ApplyConfiguration(new RolConfig());
+            modelBuilder.ApplyConfiguration(new EventoConfig());
+            modelBuilder.ApplyConfiguration(new PresentacionConfig());
+
 
             base.OnModelCreating(modelBuilder);
         }
