@@ -1,5 +1,5 @@
 {
   "ConnectionStrings": {
-    "Main": "Server=.;Database=ProyectoPOE;Trusted_Connection=True;TrustServerCertificate=True;"
+    "Main": "Server=DUSTIN\\SQLEXPRESS;Database=ProyectoPOE;Trusted_Connection=True;TrustServerCertificate=True;"
   }
 }

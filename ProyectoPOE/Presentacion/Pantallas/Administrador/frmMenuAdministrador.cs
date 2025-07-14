@@ -37,5 +37,12 @@ namespace ProyectoPOE.Presentacion.Pantallas.Administrador
             frm.StartPosition = FormStartPosition.CenterScreen;
             frm.ShowDialog();
         }
+
+        private void btnRegistrarEvento_Click(object sender, EventArgs e)
+        {
+            var frm = new RegistrarEvento();
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            frm.ShowDialog();
+        }
     }
 }

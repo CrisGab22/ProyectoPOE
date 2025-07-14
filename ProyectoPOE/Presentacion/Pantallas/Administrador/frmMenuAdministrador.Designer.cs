@@ -74,6 +74,7 @@
             btnRegistrarEvento.TabIndex = 3;
             btnRegistrarEvento.Text = "Registrar Evento";
             btnRegistrarEvento.UseVisualStyleBackColor = true;
+            btnRegistrarEvento.Click += btnRegistrarEvento_Click;
             // 
             // btnResultados
             // 
