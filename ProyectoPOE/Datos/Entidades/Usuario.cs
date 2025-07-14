@@ -28,6 +28,10 @@ namespace ProyectoPOE.Datos.Entidades
         [Column("rolId", TypeName = "int")]
         public int RolId { get; set; }
         public virtual Rol? Rol { get; set; }
+
+        public virtual IEnumerable<Voto>? Votos { get; set; } = null!;
+        public virtual IEnumerable<Comentario>? Comentarios { get; set; } = null!;
+
     }
 
     public class UsuarioConfig : IEntityTypeConfiguration<Usuario>
@@ -42,6 +46,14 @@ namespace ProyectoPOE.Datos.Entidades
             builder.HasOne(Usuario => Usuario.Rol)
                 .WithMany(Rol => Rol.Usuarios)
                 .HasForeignKey(Usuario => Usuario.RolId);
+
+            builder.HasMany(u => u.Votos)
+                .WithOne(v => v.Usuario)
+                .HasForeignKey(v => v.IdUsuario);
+
+            builder.HasMany(u => u.Comentarios)
+                .WithOne(c => c.Usuario)
+                .HasForeignKey(c => c.IdUsuario);
 
             builder.HasData(
                 new Usuario

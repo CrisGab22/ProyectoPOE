@@ -68,6 +68,37 @@ namespace ProyectoPOE.Datos.Migraciones
                         });
                 });
 
+            modelBuilder.Entity("ProyectoPOE.Datos.Entidades.Comentario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IdEmprendimiento")
+                        .HasColumnType("int")
+                        .HasColumnName("idEmprendimiento");
+
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int")
+                        .HasColumnName("idUsuario");
+
+                    b.Property<string>("Mensaje")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("mensaje");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdEmprendimiento");
+
+                    b.HasIndex("IdUsuario");
+
+                    b.ToTable("Comentario", (string)null);
+                });
+
             modelBuilder.Entity("ProyectoPOE.Datos.Entidades.Emprendimiento", b =>
                 {
                     b.Property<int>("Id")
@@ -327,6 +358,51 @@ namespace ProyectoPOE.Datos.Migraciones
                         });
                 });
 
+            modelBuilder.Entity("ProyectoPOE.Datos.Entidades.Voto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IdEmprendimiento")
+                        .HasColumnType("int")
+                        .HasColumnName("idEmprendimiento");
+
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int")
+                        .HasColumnName("idUsuario");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdEmprendimiento");
+
+                    b.HasIndex("IdUsuario");
+
+                    b.ToTable("Voto", (string)null);
+                });
+
+            modelBuilder.Entity("ProyectoPOE.Datos.Entidades.Comentario", b =>
+                {
+                    b.HasOne("ProyectoPOE.Datos.Entidades.Emprendimiento", "Emprendimiento")
+                        .WithMany("Comentarios")
+                        .HasForeignKey("IdEmprendimiento")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProyectoPOE.Datos.Entidades.Usuario", "Usuario")
+                        .WithMany("Comentarios")
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Emprendimiento");
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("ProyectoPOE.Datos.Entidades.Emprendimiento", b =>
                 {
                     b.HasOne("ProyectoPOE.Datos.Entidades.Facultad", "Facultad")
@@ -376,6 +452,32 @@ namespace ProyectoPOE.Datos.Migraciones
                     b.Navigation("Rol");
                 });
 
+            modelBuilder.Entity("ProyectoPOE.Datos.Entidades.Voto", b =>
+                {
+                    b.HasOne("ProyectoPOE.Datos.Entidades.Emprendimiento", "Emprendimiento")
+                        .WithMany("Votos")
+                        .HasForeignKey("IdEmprendimiento")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProyectoPOE.Datos.Entidades.Usuario", "Usuario")
+                        .WithMany("Votos")
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Emprendimiento");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("ProyectoPOE.Datos.Entidades.Emprendimiento", b =>
+                {
+                    b.Navigation("Comentarios");
+
+                    b.Navigation("Votos");
+                });
+
             modelBuilder.Entity("ProyectoPOE.Datos.Entidades.Facultad", b =>
                 {
                     b.Navigation("Emprendimientos");
@@ -389,6 +491,13 @@ namespace ProyectoPOE.Datos.Migraciones
             modelBuilder.Entity("ProyectoPOE.Datos.Entidades.Rubro", b =>
                 {
                     b.Navigation("Emprendimientos");
+                });
+
+            modelBuilder.Entity("ProyectoPOE.Datos.Entidades.Usuario", b =>
+                {
+                    b.Navigation("Comentarios");
+
+                    b.Navigation("Votos");
                 });
 #pragma warning restore 612, 618
         }
